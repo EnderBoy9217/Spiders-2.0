@@ -1,6 +1,7 @@
 plugins {
     id 'fabric-loom' version '1.2.7'
     id 'maven-publish'
+    id 'java-library'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -24,6 +25,7 @@ loom {
 
 
 dependencies {
+
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
@@ -38,7 +40,6 @@ dependencies {
 
     // For Nyfs extras
     include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.4.1")))
-
 }
 
 processResources {
@@ -59,6 +60,23 @@ java {
     // if it is present.
     // If you remove this line, sources will not be generated.
     withSourcesJar()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    api {
+        attributes {
+            attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, Usage.JAVA_API))
+            attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, objects.named(LibraryElements, LibraryElements.JAR))
+            attribute(TargetJvmVersion.TARGET_JVM_VERSION_ATTRIBUTE, 17)
+            attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling, Bundling.EXTERNAL))
+        }
+    }
 }
 
 jar {

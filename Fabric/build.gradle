@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.0-SNAPSHOT'
+    id 'fabric-loom' version '1.2.7'
     id 'maven-publish'
     id 'idea'
     id "me.modmuss50.mod-publish-plugin" version "0.3.3"
@@ -8,20 +8,35 @@ plugins {
 archivesBaseName = "${mod_id}-fabric-${minecraft_version}"
 
 dependencies {
+
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered() {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.19.3:2023.03.12@zip")
     }
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    implementation project(":Common")
-    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.0-rc.3")))
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
+    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.4.1")))
+    //implementation project(path: ':Common', configuration: 'api')
+
+
+
+    // To change the versions see the gradle.properties file
+    //minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    //mappings loom.officialMojangMappings()
+    //modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+    // Fabric API. This is technically optional, but you probably want it anyway.
+    //modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    //compileOnly "com.google.code.findbugs:jsr305:3.0.2"
+
+    // For Matrix4f implementation lost in porting
+    implementation 'org.joml:joml:1.10.5'
+
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/enderboy9217.accesswidener")
+    accessWidenerPath = file("src/main/resources/META-INF/enderboy9217.accesswidener")
     runs {
         client {
             client()
@@ -101,11 +116,13 @@ publishing {
 }
 publishMods {
     file = jar.archiveFile
-    changelog = project(":Common").file("changelog.md").text
+    //changelog = project(":Common").file("changelog.md").text
     type = STABLE
     modLoaders.add("fabric")
     displayName = "${mod_name}-${minecraft_version}-[Fabric]-${project.version}"
+    /*
     dryRun = dry_run.toBoolean()
+
     if (curseforge_publishing_enabled.toBoolean()) {
         curseforge {
             projectId = curseforge_project_id
@@ -120,5 +137,7 @@ publishMods {
             minecraftVersions.add(minecraft_version)
         }
     }
+
+     */
 
 }

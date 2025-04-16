@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'eclipse'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'net.minecraftforge.gradle' version '6.0.+'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'org.spongepowered.mixin' version '0.7.+'
     id "me.modmuss50.mod-publish-plugin" version "0.3.3"
@@ -143,10 +143,11 @@ publishing {
 }
 publishMods {
     file = jar.archiveFile
-    changelog = project(":Common").file("changelog.md").text
+    //changelog = project(":Common").file("changelog.md").text
     type = STABLE
     modLoaders.add("forge")
     displayName = "${mod_name}-${minecraft_version}-[Forge]-${project.version}"
+    /*
     dryRun = dry_run.toBoolean()
     if (curseforge_publishing_enabled.toBoolean()) {
         curseforge {
@@ -162,5 +163,6 @@ publishMods {
             minecraftVersions.add(minecraft_version)
         }
     }
+     */
 
 }
