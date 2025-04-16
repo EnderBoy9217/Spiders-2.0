@@ -176,7 +176,11 @@ public class AdvancedClimberPathNavigator<T extends Mob & IClimberEntity> extend
 					isOnSameSideAsTarget = true;
 				}
 
-				if(isOnSameSideAsTarget && (isWaypointInReach || (i == 0 && this.mob.canCutCorner(this.path.getNextNode().type) && this.isNextTargetInLine(pos, sizeX, sizeY, sizeZ, 1 + i)))) {
+				if (isOnSameSideAsTarget &&
+						(isWaypointInReach ||
+								(i == 0 && this.mob.getNavigation().isInProgress() &&
+										this.path.getNextNode().type == BlockPathTypes.OPEN &&
+										this.isNextTargetInLine(pos, sizeX, sizeY, sizeZ, 1 + i)))) {
 					this.path.setNextNodeIndex(this.path.getNextNodeIndex() + 1 + i);
 					break;
 				}
@@ -410,7 +414,7 @@ public class AdvancedClimberPathNavigator<T extends Mob & IClimberEntity> extend
 
 					if(offsetX * dx + offsetZ * dz >= minDotProduct) {
 						BlockPathTypes nodeTypeBelow = this.nodeEvaluator.getBlockPathType(
-								this.level,
+								level,
 								unSwizzle(obx, by + (invertY ? 1 : -1), obz, ax, ay, az, Direction.Axis.X), unSwizzle(obx, by + (invertY ? 1 : -1), obz, ax, ay, az, Direction.Axis.Y), unSwizzle(obx, by + (invertY ? 1 : -1), obz, ax, ay, az, Direction.Axis.Z),
 								this.mob, sizeX, sizeY, sizeZ, true, true);
 
