@@ -19,7 +19,7 @@ repositories {
 }
 
 loom {
-    accessWidenerPath = file('src/main/resources/nyfs.accesswidener')
+    accessWidenerPath = file('Common/src/main/resources/nyfs.accesswidener')
 }
 
 
