@@ -21,7 +21,7 @@ dependencies {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/nyfs.accesswidener")
+    accessWidenerPath = file("src/main/resources/enderboy9217.accesswidener")
     runs {
         client {
             client()
