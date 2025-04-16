@@ -35,6 +35,10 @@ dependencies {
 
     // For Matrix4f implementation lost in porting
     implementation 'org.joml:joml:1.10.5'
+
+    // For Nyfs extras
+    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.4.1")))
+
 }
 
 processResources {
