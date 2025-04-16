@@ -1,11 +1,11 @@
-package com.nyfaria.nyfsspiders.datagen;
+package com.enderboy9217.spiders2.datagen;
 
 import com.google.common.collect.ImmutableMap;
-import com.nyfaria.nyfsspiders.registration.RegistryObject;
-import com.nyfaria.nyfsspiders.Constants;
-import com.nyfaria.nyfsspiders.init.BlockInit;
-import com.nyfaria.nyfsspiders.init.EntityInit;
-import com.nyfaria.nyfsspiders.init.ItemInit;
+import com.enderboy9217.spiders2.registration.RegistryObject;
+import com.enderboy9217.spiders2.Constants;
+import com.enderboy9217.spiders2.init.BlockInit;
+import com.enderboy9217.spiders2.init.EntityInit;
+import com.enderboy9217.spiders2.init.ItemInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;

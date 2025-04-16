@@ -1,6 +1,6 @@
-package com.nyfaria.nyfsspiders.event;
+package com.enderboy9217.spiders2.event;
 
-import com.nyfaria.nyfsspiders.init.EntityInit;
+import com.enderboy9217.spiders2.init.EntityInit;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 

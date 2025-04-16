@@ -1,7 +1,7 @@
-package com.nyfaria.nyfsspiders.platform;
+package com.enderboy9217.spiders2.platform;
 
-import com.nyfaria.nyfsspiders.Config;
-import com.nyfaria.nyfsspiders.platform.services.IPlatformHelper;
+import com.enderboy9217.spiders2.Config;
+import com.enderboy9217.spiders2.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.nio.file.Path;

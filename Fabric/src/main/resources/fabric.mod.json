@@ -12,10 +12,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.nyfaria.nyfsspiders.NyfsSpiders"
+      "com.enderboy9217.spiders2.NyfsSpiders"
     ],
     "client": [
-      "com.nyfaria.nyfsspiders.NyfsSpidersClient"
+      "com.enderboy9217.spiders2.NyfsSpidersClient"
     ]
   },
   "mixins": [

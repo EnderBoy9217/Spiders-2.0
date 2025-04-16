@@ -1,6 +1,6 @@
-package com.nyfaria.nyfsspiders.datagen;
+package com.enderboy9217.spiders2.datagen;
 
-import com.nyfaria.nyfsspiders.Constants;
+import com.enderboy9217.spiders2.Constants;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;

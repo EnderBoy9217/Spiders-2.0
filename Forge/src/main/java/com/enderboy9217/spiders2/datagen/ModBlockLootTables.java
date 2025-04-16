@@ -1,7 +1,7 @@
-package com.nyfaria.nyfsspiders.datagen;
+package com.enderboy9217.spiders2.datagen;
 
-import com.nyfaria.nyfsspiders.registration.RegistryObject;
-import com.nyfaria.nyfsspiders.init.BlockInit;
+import com.enderboy9217.spiders2.registration.RegistryObject;
+import com.enderboy9217.spiders2.init.BlockInit;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;

@@ -1,4 +1,4 @@
-package com.nyfaria.nyfsspiders.datagen;
+package com.enderboy9217.spiders2.datagen;
 
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.entity.EntityType;

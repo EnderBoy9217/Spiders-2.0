@@ -1,6 +1,6 @@
-package com.nyfaria.nyfsspiders.datagen;
+package com.enderboy9217.spiders2.datagen;
 
-import com.nyfaria.nyfsspiders.Constants;
+import com.enderboy9217.spiders2.Constants;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.common.data.ExistingFileHelper;

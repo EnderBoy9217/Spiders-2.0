@@ -1,4 +1,4 @@
-package com.nyfaria.nyfsspiders;
+package com.enderboy9217.spiders2;
 
 import net.fabricmc.api.ClientModInitializer;
 

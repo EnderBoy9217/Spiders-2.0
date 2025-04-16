@@ -1,6 +1,6 @@
-package com.nyfaria.nyfsspiders.datagen;
+package com.enderboy9217.spiders2.datagen;
 
-import com.nyfaria.nyfsspiders.Constants;
+import com.enderboy9217.spiders2.Constants;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;

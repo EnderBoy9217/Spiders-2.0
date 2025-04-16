@@ -1,12 +1,12 @@
-package com.nyfaria.nyfsspiders;
+package com.enderboy9217.spiders2;
 
-import com.nyfaria.nyfsspiders.datagen.ModBlockStateProvider;
-import com.nyfaria.nyfsspiders.datagen.ModItemModelProvider;
-import com.nyfaria.nyfsspiders.datagen.ModLangProvider;
-import com.nyfaria.nyfsspiders.datagen.ModLootTableProvider;
-import com.nyfaria.nyfsspiders.datagen.ModRecipeProvider;
-import com.nyfaria.nyfsspiders.datagen.ModSoundProvider;
-import com.nyfaria.nyfsspiders.datagen.ModTagProvider;
+import com.enderboy9217.spiders2.datagen.ModBlockStateProvider;
+import com.enderboy9217.spiders2.datagen.ModItemModelProvider;
+import com.enderboy9217.spiders2.datagen.ModLangProvider;
+import com.enderboy9217.spiders2.datagen.ModLootTableProvider;
+import com.enderboy9217.spiders2.datagen.ModRecipeProvider;
+import com.enderboy9217.spiders2.datagen.ModSoundProvider;
+import com.enderboy9217.spiders2.datagen.ModTagProvider;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.DataGenerator;

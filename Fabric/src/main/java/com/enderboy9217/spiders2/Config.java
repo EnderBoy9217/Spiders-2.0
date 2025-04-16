@@ -1,4 +1,4 @@
-package com.nyfaria.nyfsspiders;
+package com.enderboy9217.spiders2;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
