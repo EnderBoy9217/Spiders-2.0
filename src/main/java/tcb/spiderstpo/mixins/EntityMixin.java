@@ -5,6 +5,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -124,4 +125,9 @@ public abstract class EntityMixin implements IEntityMovementHook, IEntityReadWri
 
 	@Override
 	public void onRegisterData() { }
+
+	@Accessor("level")
+	public Level getLevel() {
+		throw new UnsupportedOperationException("Mixin failed to apply");
+	}
 }

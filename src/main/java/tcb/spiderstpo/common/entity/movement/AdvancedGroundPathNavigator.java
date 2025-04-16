@@ -20,6 +20,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
+import org.spongepowered.asm.mixin.Shadow;
 import tcb.spiderstpo.common.entity.mob.IClimberEntity;
 
 public class AdvancedGroundPathNavigator<T extends Mob & IClimberEntity> extends GroundPathNavigation {
@@ -97,6 +98,8 @@ public class AdvancedGroundPathNavigator<T extends Mob & IClimberEntity> extends
 		}
 	}
 
+	private Level level;
+
 	@Override
 	protected void doStuckDetection(Vec3 entityPos) {
 		super.doStuckDetection(entityPos);
@@ -139,14 +142,14 @@ public class AdvancedGroundPathNavigator<T extends Mob & IClimberEntity> extends
 
 			loop: for(int yo = 0; yo < height; yo++) {
 				for(int xzo = -ceilHalfWidth; xzo <= ceilHalfWidth; xzo++) {
-					BlockPos pos = new BlockPos(checkPos.x + (axis != 0 ? xzo : 0), checkPos.y + (axis != 1 ? yo : 0), checkPos.z + (axis != 2 ? xzo : 0));
+					BlockPos pos = new BlockPos((int) (checkPos.x + (axis != 0 ? xzo : 0)), (int) (checkPos.y + (axis != 1 ? yo : 0)), (int) (checkPos.z + (axis != 2 ? xzo : 0)));
 
-					BlockState state = this.advancedPathFindingEntity.level.getBlockState(pos);
+					BlockState state = level.getBlockState(pos);
 
-					BlockPathTypes nodeType = state.isPathfindable(this.advancedPathFindingEntity.level, pos, PathComputationType.LAND) ? BlockPathTypes.OPEN : BlockPathTypes.BLOCKED;
+					BlockPathTypes nodeType = state.isPathfindable(level, pos, PathComputationType.LAND) ? BlockPathTypes.OPEN : BlockPathTypes.BLOCKED;
 
 					if(nodeType == BlockPathTypes.BLOCKED) {
-						VoxelShape collisionShape = state.getShape(this.advancedPathFindingEntity.level, pos, CollisionContext.of(this.advancedPathFindingEntity)).move(pos.getX(), pos.getY(), pos.getZ());
+						VoxelShape collisionShape = state.getShape(level, pos, CollisionContext.of(this.advancedPathFindingEntity)).move(pos.getX(), pos.getY(), pos.getZ());
 
 						//TODO Use ILineConsumer
 						if(collisionShape != null && collisionShape.toAabbs().stream().anyMatch(aabb -> aabb.intersects(checkBox))) {

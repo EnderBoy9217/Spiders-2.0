@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -87,9 +88,17 @@ public abstract class BetterSpiderEntityMixin extends Monster implements IClimbe
 		return !state.is(ModTags.NON_CLIMBABLE);
 	}
 
+	@Shadow
+	private Level level;
+
 	@Override
 	public boolean canAttachToSide(Direction side) {
-		return this.jumping || !Config.getConfig().isPreventClimbingInRain() || side.getAxis() == Direction.Axis.Y || !this.level.isRainingAt(new BlockPos(this.getX(), this.getY() + this.getBbHeight() * 0.5f, this.getZ()));
+
+		return
+			this.jumping
+			|| !Config.getConfig().isPreventClimbingInRain()
+			|| side.getAxis() == Direction.Axis.Y
+			|| !this.level.isRainingAt(new BlockPos((int) this.getX(), (int) (this.getY() + this.getBbHeight() * 0.5f), (int) this.getZ()));
 	}
 
 	@Override

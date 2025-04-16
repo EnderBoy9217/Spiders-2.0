@@ -32,6 +32,9 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
+
+    // For Matrix4f implementation lost in porting
+    implementation 'org.joml:joml:1.10.5'
 }
 
 processResources {

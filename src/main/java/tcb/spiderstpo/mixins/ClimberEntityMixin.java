@@ -33,6 +33,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.apache.commons.lang3.tuple.Pair;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -46,6 +47,7 @@ import tcb.spiderstpo.common.entity.movement.*;
 import tcb.spiderstpo.mixins.access.ChunkMapAccess;
 import tcb.spiderstpo.mixins.access.ServerEntityAccess;
 import tcb.spiderstpo.mixins.access.TrackedEntityAccess;
+import net.minecraft.core.Vec3i;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -125,6 +127,9 @@ public abstract class ClimberEntityMixin extends PathfinderMob implements IClimb
     private ClimberEntityMixin(EntityType<? extends PathfinderMob> type, Level worldIn) {
         super(type, worldIn);
     }
+
+    @Shadow
+    private float maxUpStep;
 
     @Inject(method = "<init>*", at = @At("RETURN"))
     private void onConstructed(CallbackInfo ci) {
@@ -413,6 +418,9 @@ public abstract class ClimberEntityMixin extends PathfinderMob implements IClimb
         return dir;
     }
 
+    @Shadow
+    private Level level;
+
     @Override
     public void onTick() {
         if (!this.level.isClientSide && this.level instanceof ServerLevel) {
@@ -564,6 +572,9 @@ public abstract class ClimberEntityMixin extends PathfinderMob implements IClimb
         return offsetState.getBlock().getFriction() * 0.91f;
     }
 
+    @Shadow
+    private boolean onGround;
+
     private void updateOffsetsAndOrientation() {
         Vec3 direction = this.getOrientation().getGlobal(this.getYRot(), this.getXRot());
 
@@ -573,6 +584,7 @@ public abstract class ClimberEntityMixin extends PathfinderMob implements IClimb
         double baseStickingOffsetY = this.getVerticalOffset(1);
         double baseStickingOffsetZ = 0.0f;
         Vec3 baseOrientationNormal = new Vec3(0, 1, 0);
+
 
         if (!this.isClimbingDisabled && this.onGround && this.getVehicle() == null) {
             Vec3 p = this.position();
@@ -838,7 +850,7 @@ public abstract class ClimberEntityMixin extends PathfinderMob implements IClimb
             }
 
             if (!canTravel) {
-                this.calculateEntityAnimation(this, true);
+                this.calculateEntityAnimation(true);
             }
 
             this.updateOffsetsAndOrientation();
@@ -850,7 +862,19 @@ public abstract class ClimberEntityMixin extends PathfinderMob implements IClimb
     }
 
     private float getRelevantMoveFactor(float slipperiness) {
-        return this.onGround ? this.getSpeed() * (0.16277136F / (slipperiness * slipperiness * slipperiness)) : this.flyingSpeed;
+        // Retrieve the flying speed attribute instance
+        AttributeInstance flyingSpeedAttribute = this.getAttribute(Attributes.FLYING_SPEED);
+
+        // Check if the attribute is present
+        if (flyingSpeedAttribute != null) {
+
+            boolean isOnGround = this.horizontalCollision && this.getY() - this.getBlockY() < 0.05;
+            // Return the adjusted speed based on whether the entity is on the ground
+            return isOnGround ? this.getSpeed() * (0.16277136F / (slipperiness * slipperiness * slipperiness)) : (float) flyingSpeedAttribute.getValue();
+        }
+
+        // Return a default value if the flying speed attribute is not present
+        return 0.05F; // Adjust this value as needed
     }
 
     private void travelOnGround(Vec3 relative) {
@@ -877,7 +901,9 @@ public abstract class ClimberEntityMixin extends PathfinderMob implements IClimb
             float slipperiness = 0.91f;
 
             if (this.onGround) {
-                BlockPos offsetPos = new BlockPos(this.position()).relative(groundDirection.getLeft());
+                // Assuming 'this.position()' returns a Vec3
+                Vec3i positionVec3i = new Vec3i((int) this.position().x, (int) this.position().y, (int) this.position().z);
+                BlockPos offsetPos = new BlockPos(positionVec3i).relative(groundDirection.getLeft());
                 slipperiness = this.getBlockSlipperiness(offsetPos);
             }
 
@@ -952,7 +978,8 @@ public abstract class ClimberEntityMixin extends PathfinderMob implements IClimb
         if (this.onGround) {
             this.fallDistance = 0;
 
-            BlockPos offsetPos = new BlockPos(this.position()).relative(groundDirection.getLeft());
+            Vec3i positionVec3i = new Vec3i((int) this.position().x, (int) this.position().y, (int) this.position().z);
+            BlockPos offsetPos = new BlockPos(positionVec3i).relative(groundDirection.getLeft());
             slipperiness = this.getBlockSlipperiness(offsetPos);
         }
 
@@ -1015,7 +1042,7 @@ public abstract class ClimberEntityMixin extends PathfinderMob implements IClimb
             }
         }
 
-        this.calculateEntityAnimation(this, true);
+        this.calculateEntityAnimation(true);
     }
     public void setLocationFromBoundingBox() {
         AABB axisAlignedBB = this.getBoundingBox();

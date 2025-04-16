@@ -74,12 +74,17 @@ public class AdvancedClimberPathNavigator<T extends Mob & IClimberEntity> extend
 				Vec3 pos = this.getTempMobPos();
 				Vec3 targetPos = this.path.getNextEntityPos(this.mob);
 
-				if(pos.y > targetPos.y && !this.mob.isOnGround() && Mth.floor(pos.x) == Mth.floor(targetPos.x) && Mth.floor(pos.z) == Mth.floor(targetPos.z)) {
+				boolean isOnGround = this.mob.horizontalCollision && this.mob.getY() - this.mob. getBlockY() < 0.05;
+				if (pos.y > targetPos.y &&
+						!isOnGround &&
+						Mth.floor(pos.x) == Mth.floor(targetPos.x) &&
+						Mth.floor(pos.z) == Mth.floor(targetPos.z)) {
 					this.path.advance();
 				}
 			}
 
-			DebugPackets.sendPathFindingPacket(this.level, this.mob, this.path, this.maxDistanceToWaypoint);
+			Level level;
+			DebugPackets.sendPathFindingPacket(level, this.mob, this.path, this.maxDistanceToWaypoint);
 
 			if(!this.isDone()) {
 				Node targetPoint = this.path.getNode(this.path.getNextNodeIndex());
@@ -94,7 +99,7 @@ public class AdvancedClimberPathNavigator<T extends Mob & IClimberEntity> extend
 					dir = Direction.DOWN;
 				}
 
-				Vec3 targetPos = this.getExactPathingTarget(this.level, targetPoint.asBlockPos(), dir);
+				Vec3 targetPos = this.getExactPathingTarget(level, targetPoint.asBlockPos(), dir);
 
 				MoveControl moveController = this.mob.getMoveControl();
 
